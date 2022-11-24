@@ -7,6 +7,7 @@ export default function Board() {
   const [x, setX] = useState([0, 1, 2, 3, 4, 5, 6, 7]);
   const [y, setY] = useState([0, 1, 2, 3, 4, 5, 6, 7]);
   const [pieces, setPieces] = useState(BoardModel);
+  const [removedPieces, setRemovedPieces] = useState([]);
   const [selectedPiece, setSetlectedPiece] = useState(null);
   function findPiece(x, y) {
     const foundPiece = pieces.find(
@@ -21,18 +22,27 @@ export default function Board() {
   }
   function selectOrMovePiece(x, y) {
     if (!selectedPiece) {
-      const foundPiece = pieces.find(
-        (piece) => piece.location.x === x && piece.location.y === y
-      );
-      if (foundPiece) setSetlectedPiece(foundPiece);
+      const foundPiece = findPiece(x, y);
+      setSetlectedPiece(foundPiece);
     } else {
-      // nextLocation;
-      if (selectedPiece.isVerifiedMove({ x, y }))
+      const nextLocationPiece = findPiece(x, y);
+      if (nextLocationPiece) {
+        if (
+          nextLocationPiece.color !== selectedPiece.color &&
+          selectedPiece.isVerifiedMove({ x, y })
+        ) {
+          setRemovedPieces((prevState) => [...prevState, nextLocationPiece]);
+          pieces.splice(nextLocationPiece.id, 1);
+          selectedPiece.location = { x, y };
+        }
+      } else if (selectedPiece.isVerifiedMove({ x, y })) {
+        console.log("hi");
         selectedPiece.location = { x, y };
+      }
       setSetlectedPiece(null);
     }
   }
-
+  console.log(removedPieces);
   return (
     <div className="board-wrapper">
       <div className="board">
@@ -55,6 +65,9 @@ export default function Board() {
           })
         )}
       </div>
+      {removedPieces.map((piece) => (
+        <h5 key={piece.id}>{piece.markup}</h5>
+      ))}
       {!selectedPiece && <h4>select one piece</h4>}
     </div>
   );

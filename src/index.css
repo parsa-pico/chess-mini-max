@@ -40,4 +40,11 @@ code {
 
 .piece {
   cursor: pointer;
+  font-size: 48px;
+}
+.piece--white {
+  color: burlywood;
+}
+.piece--black {
+  color: black;
 }

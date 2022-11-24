@@ -3,7 +3,7 @@ import RookMarkup from "./Markups/Rook";
 export default class Rook extends ChessPiece {
   constructor(id, location, color) {
     super(id, location, color, "rook");
-    this.markup = <RookMarkup />;
+    this.markup = <RookMarkup color={color} />;
   }
   isVerifiedMove(nextLocation) {
     if (

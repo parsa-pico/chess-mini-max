@@ -3,7 +3,7 @@ import KnightMarkup from "./Markups/Knight";
 export default class Knight extends ChessPiece {
   constructor(id, location, color) {
     super(id, location, color, "knight");
-    this.markup = <KnightMarkup />;
+    this.markup = <KnightMarkup color={color} />;
   }
   isVerifiedMove(nextLocation) {
     if (
