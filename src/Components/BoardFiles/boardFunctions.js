@@ -20,9 +20,10 @@ export function allPossibleWays(boardPieces, color) {
   boardPieces
     .filter((piece) => piece.color === color)
     .forEach((piece) => {
-      if (piece.type !== "king") ways.push(...piece.possibleWays(boardPieces));
+      ways.push(...piece.possibleWays(boardPieces, true));
     });
 
   const uniqueWays = ways.unique();
+
   return uniqueWays;
 }
