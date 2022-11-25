@@ -10,4 +10,8 @@ export default [
   new Bishop(5, { x: 0, y: 2 }, "black"),
   new Knight(6, { x: 7, y: 6 }, "white"),
   new Bishop(7, { x: 7, y: 5 }, "white"),
+  new Rook(8, { x: 7, y: 7 }, "white"),
+  new Rook(9, { x: 7, y: 0 }, "white"),
+  new Knight(10, { x: 7, y: 1 }, "white"),
+  new Bishop(11, { x: 7, y: 2 }, "white"),
 ];

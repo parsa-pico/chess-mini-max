@@ -15,6 +15,7 @@ export default class Rook extends ChessPiece {
   // }
   possibleWays(boardPieces) {
     let ways = [];
+
     for (let x = this.location.x - 1; x >= 0; x--) {
       const obstacle = boardPieces.find(
         (piece) =>

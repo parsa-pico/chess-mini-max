@@ -25,14 +25,15 @@ export default function Board() {
     if (!selectedPiece) {
       const foundPiece = findPiece(x, y);
 
-      setPossibleWays(foundPiece.possibleWays(boardPieces));
+      setPossibleWays(foundPiece.possibleWays(pieces));
       setSetlectedPiece(foundPiece);
     } else {
       const nextLocationPiece = findPiece(x, y);
-      if (selectedPiece.isPossibleWay(boardPieces, { x, y })) {
+      if (selectedPiece.isPossibleWay(pieces, { x, y })) {
         if (nextLocationPiece) {
           setRemovedPieces((prevState) => [...prevState, nextLocationPiece]);
-          pieces.splice(nextLocationPiece.id, 1);
+
+          deletePiece(nextLocationPiece.id);
           selectedPiece.location = { x, y };
         } else {
           selectedPiece.location = { x, y };
@@ -43,7 +44,12 @@ export default function Board() {
       setPossibleWays([]);
     }
   }
-
+  function deletePiece(id) {
+    const piecesCopy = [...pieces];
+    const index = piecesCopy.findIndex((piece) => piece.id === id);
+    piecesCopy.splice(index, 1);
+    setPieces(piecesCopy);
+  }
   return (
     <div className="board-wrapper">
       <div className="board">
