@@ -56,7 +56,7 @@ export default class Knight extends ChessPiece {
     }
     deleteArray.reverse().forEach((index) => ways.splice(index, 1));
     this.removeEnemyKingFromWays(ways, boardPieces);
-    console.log(ways);
+
     return ways;
   }
 }

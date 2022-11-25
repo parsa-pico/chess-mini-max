@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Square from "./Square";
-import { isVerifiedMove } from "./BoardFiles/boardFunctions";
+import { allPossibleWays } from "./BoardFiles/boardFunctions";
 import boardPieces from "./BoardFiles/boardPieces";
+
 export default function Board() {
   // x is vertical postion,y is horizontal
   const [x, setX] = useState([0, 1, 2, 3, 4, 5, 6, 7]);
@@ -11,29 +12,35 @@ export default function Board() {
   const [removedPieces, setRemovedPieces] = useState([]);
   const [selectedPiece, setSetlectedPiece] = useState(null);
   const [possibleWays, setPossibleWays] = useState([]);
+  useEffect(() => {
+    const color = isWhiteTurn ? "black" : "white";
+    const allWays = allPossibleWays(pieces, color);
 
+    setPossibleWays(allWays);
+    console.log("all ways for:", color);
+  }, [isWhiteTurn]);
   //computer plays as black
   //random move
-  useEffect(() => {
-    let BlackPiece;
-    let blackPossibleWays = [];
-    let nextLocation;
-    if (!isWhiteTurn) {
-      while (blackPossibleWays.length === 0) {
-        while (!BlackPiece) {
-          BlackPiece = pieces.find(
-            (piece) => piece.id === randomInt(0, 32) && piece.color === "black"
-          );
-        }
-        blackPossibleWays = BlackPiece.possibleWays(pieces);
-        // console.log(blackPossibleWays);
-        const randPossibleWayIndex = randomInt(0, blackPossibleWays.length - 1);
-        nextLocation = blackPossibleWays[randPossibleWayIndex];
-      }
+  // useEffect(() => {
+  //   let BlackPiece;
+  //   let blackPossibleWays = [];
+  //   let nextLocation;
+  //   if (!isWhiteTurn) {
+  //     while (blackPossibleWays.length === 0) {
+  //       while (!BlackPiece) {
+  //         BlackPiece = pieces.find(
+  //           (piece) => piece.id === randomInt(0, 32) && piece.color === "black"
+  //         );
+  //       }
+  //       blackPossibleWays = BlackPiece.possibleWays(pieces);
+  //       // console.log(blackPossibleWays);
+  //       const randPossibleWayIndex = randomInt(0, blackPossibleWays.length - 1);
+  //       nextLocation = blackPossibleWays[randPossibleWayIndex];
+  //     }
 
-      movePiece(BlackPiece, nextLocation.x, nextLocation.y);
-    }
-  }, [isWhiteTurn]);
+  //     movePiece(BlackPiece, nextLocation.x, nextLocation.y);
+  //   }
+  // }, [isWhiteTurn]);
 
   function randomInt(min, max) {
     const randInt = Math.floor(Math.random() * (max - min) + min);
