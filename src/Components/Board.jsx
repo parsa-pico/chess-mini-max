@@ -24,6 +24,7 @@ export default function Board() {
   function selectOrMovePiece(x, y) {
     if (!selectedPiece) {
       const foundPiece = findPiece(x, y);
+
       setPossibleWays(foundPiece.possibleWays(boardPieces));
       setSetlectedPiece(foundPiece);
     } else {

@@ -23,6 +23,14 @@ code {
 .board--blue {
   background-color: rgba(0, 255, 255, 0.235);
 }
+.board__btn {
+  height: 20px;
+}
+.board--rotate,
+.piece--rotate,
+.square__location--rotate {
+  transform: rotate(180deg);
+}
 .square {
   height: 50px;
   width: 50px;
