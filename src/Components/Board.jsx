@@ -28,18 +28,16 @@ export default function Board() {
       setSetlectedPiece(foundPiece);
     } else {
       const nextLocationPiece = findPiece(x, y);
-      if (nextLocationPiece) {
-        if (
-          nextLocationPiece.color !== selectedPiece.color &&
-          selectedPiece.isVerifiedMove({ x, y })
-        ) {
+      if (selectedPiece.isPossibleWay(boardPieces, { x, y })) {
+        if (nextLocationPiece) {
           setRemovedPieces((prevState) => [...prevState, nextLocationPiece]);
           pieces.splice(nextLocationPiece.id, 1);
           selectedPiece.location = { x, y };
+        } else {
+          selectedPiece.location = { x, y };
         }
-      } else if (selectedPiece.isVerifiedMove({ x, y })) {
-        selectedPiece.location = { x, y };
       }
+
       setSetlectedPiece(null);
       setPossibleWays([]);
     }

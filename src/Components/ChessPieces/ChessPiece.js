@@ -7,4 +7,5 @@ export default class ChessPiece {
   }
   isVerifiedMove() {}
   possibleWays() {}
+  isPossibleWay() {}
 }
