@@ -38,22 +38,25 @@ export default class Knight extends ChessPiece {
       { x: this.location.x - 1, y: this.location.y + 2 },
       { x: this.location.x - 1, y: this.location.y - 2 },
     ];
-    ways.forEach((way, index) => {
+    let deleteArray = [];
+    for (let index in ways) {
       if (
-        way.x < 0 ||
-        way.x > 7 ||
-        way.y < 0 ||
-        way.y > 7 ||
+        ways[index].x < 0 ||
+        ways[index].x > 7 ||
+        ways[index].y < 0 ||
+        ways[index].y > 7 ||
         boardPieces.find(
           (piece) =>
             piece.color === this.color &&
-            piece.location.x === way.x &&
-            piece.location.y === way.y
+            piece.location.x === ways[index].x &&
+            piece.location.y === ways[index].y
         )
       )
-        ways.splice(index, 1);
-    });
+        deleteArray.push(index);
+    }
+    deleteArray.reverse().forEach((index) => ways.splice(index, 1));
     this.removeEnemyKingFromWays(ways, boardPieces);
+    console.log(ways);
     return ways;
   }
 }

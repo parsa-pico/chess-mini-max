@@ -11,6 +11,34 @@ export default function Board() {
   const [removedPieces, setRemovedPieces] = useState([]);
   const [selectedPiece, setSetlectedPiece] = useState(null);
   const [possibleWays, setPossibleWays] = useState([]);
+
+  //computer plays as black
+  //random move
+  useEffect(() => {
+    let BlackPiece;
+    let blackPossibleWays = [];
+    let nextLocation;
+    if (!isWhiteTurn) {
+      while (blackPossibleWays.length === 0) {
+        while (!BlackPiece) {
+          BlackPiece = pieces.find(
+            (piece) => piece.id === randomInt(0, 32) && piece.color === "black"
+          );
+        }
+        blackPossibleWays = BlackPiece.possibleWays(pieces);
+        // console.log(blackPossibleWays);
+        const randPossibleWayIndex = randomInt(0, blackPossibleWays.length - 1);
+        nextLocation = blackPossibleWays[randPossibleWayIndex];
+      }
+
+      movePiece(BlackPiece, nextLocation.x, nextLocation.y);
+    }
+  }, [isWhiteTurn]);
+
+  function randomInt(min, max) {
+    const randInt = Math.floor(Math.random() * (max - min) + min);
+    return randInt;
+  }
   function findPiece(x, y) {
     const foundPiece = pieces.find(
       (piece) => piece.location.x === x && piece.location.y === y
@@ -46,6 +74,22 @@ export default function Board() {
       setSetlectedPiece(null);
       setPossibleWays([]);
     }
+  }
+
+  function movePiece(piece, x, y) {
+    const nextLocationPiece = findPiece(x, y);
+    if (piece.isPossibleWay(pieces, { x, y })) {
+      if (nextLocationPiece) {
+        setRemovedPieces((prevState) => [...prevState, nextLocationPiece]);
+        deletePiece(nextLocationPiece.id);
+        piece.location = { x, y };
+      } else {
+        piece.location = { x, y };
+      }
+      setIsWhiteTurn(isWhiteTurn ? false : true);
+    }
+    setSetlectedPiece(null);
+    setPossibleWays([]);
   }
   function deletePiece(id) {
     const piecesCopy = [...pieces];
