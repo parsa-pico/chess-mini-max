@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Square from "./Square";
 import { isVerifiedMove } from "./BoardFiles/boardFunctions";
-import BoardModel from "./BoardFiles/boardModel";
+import boardPieces from "./BoardFiles/boardPieces";
 export default function Board() {
   // x is vertical postion,y is horizontal
   const [x, setX] = useState([0, 1, 2, 3, 4, 5, 6, 7]);
   const [y, setY] = useState([0, 1, 2, 3, 4, 5, 6, 7]);
-  const [pieces, setPieces] = useState(BoardModel);
+  const [pieces, setPieces] = useState(boardPieces);
   const [removedPieces, setRemovedPieces] = useState([]);
   const [selectedPiece, setSetlectedPiece] = useState(null);
+  const [possibleWays, setPossibleWays] = useState([]);
   function findPiece(x, y) {
     const foundPiece = pieces.find(
       (piece) => piece.location.x === x && piece.location.y === y
@@ -23,7 +24,7 @@ export default function Board() {
   function selectOrMovePiece(x, y) {
     if (!selectedPiece) {
       const foundPiece = findPiece(x, y);
-      console.log(foundPiece.possibleWays());
+      setPossibleWays(foundPiece.possibleWays(boardPieces));
       setSetlectedPiece(foundPiece);
     } else {
       const nextLocationPiece = findPiece(x, y);
@@ -40,6 +41,7 @@ export default function Board() {
         selectedPiece.location = { x, y };
       }
       setSetlectedPiece(null);
+      setPossibleWays([]);
     }
   }
 
@@ -52,6 +54,9 @@ export default function Board() {
             firstColor = x % 2 === 0 ? "red" : "white";
             secondColor = x % 2 === 0 ? "white" : "red";
             color = y % 2 === 0 ? firstColor : secondColor;
+            color = possibleWays.find((way) => way.x === x && way.y === y)
+              ? "green"
+              : color;
             return (
               <Square
                 findOrMovePiece={selectOrMovePiece}

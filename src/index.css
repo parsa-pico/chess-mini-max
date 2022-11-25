@@ -37,6 +37,10 @@ code {
 .square--red {
   background-color: brown;
 }
+.square--green {
+  background-color: green;
+  cursor: pointer;
+}
 .square__location {
   position: absolute;
   font-size: 5px;

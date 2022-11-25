@@ -13,13 +13,44 @@ export default class Rook extends ChessPiece {
       return true;
     return false;
   }
-  possibleWays() {
+  possibleWays(boardPieces) {
     let ways = [];
-    for (let x = 0; x <= 7; x++)
-      if (x !== this.location.x) ways.push({ x, y: this.location.y });
-
-    for (let y = 0; y <= 7; y++)
-      if (y !== this.location.y) ways.push({ x: this.location.x, y });
+    for (let x = this.location.x - 1; x >= 0; x--) {
+      const obstacle = boardPieces.find(
+        (piece) =>
+          piece.location.x === x && piece.location.y === this.location.y
+      );
+      if (!obstacle || obstacle.color !== this.color)
+        ways.push({ x, y: this.location.y });
+      if (obstacle) break;
+    }
+    for (let x = this.location.x + 1; x <= 7; x++) {
+      const obstacle = boardPieces.find(
+        (piece) =>
+          piece.location.x === x && piece.location.y === this.location.y
+      );
+      if (!obstacle || obstacle.color !== this.color)
+        ways.push({ x, y: this.location.y });
+      if (obstacle) break;
+    }
+    for (let y = this.location.y - 1; y >= 0; y--) {
+      const obstacle = boardPieces.find(
+        (piece) =>
+          piece.location.y === y && piece.location.x === this.location.x
+      );
+      if (!obstacle || obstacle.color !== this.color)
+        ways.push({ y, x: this.location.x });
+      if (obstacle) break;
+    }
+    for (let y = this.location.y + 1; y <= 7; y++) {
+      const obstacle = boardPieces.find(
+        (piece) =>
+          piece.location.y === y && piece.location.x === this.location.x
+      );
+      if (!obstacle || obstacle.color !== this.color)
+        ways.push({ y, x: this.location.x });
+      if (obstacle) break;
+    }
     return ways;
   }
 }
