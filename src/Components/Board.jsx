@@ -6,6 +6,7 @@ export default function Board() {
   // x is vertical postion,y is horizontal
   const [x, setX] = useState([0, 1, 2, 3, 4, 5, 6, 7]);
   const [y, setY] = useState([0, 1, 2, 3, 4, 5, 6, 7]);
+  const [isWhiteTurn, setIsWhiteTurn] = useState(true);
   const [pieces, setPieces] = useState(boardPieces);
   const [removedPieces, setRemovedPieces] = useState([]);
   const [selectedPiece, setSetlectedPiece] = useState(null);
@@ -24,7 +25,8 @@ export default function Board() {
   function selectOrMovePiece(x, y) {
     if (!selectedPiece) {
       const foundPiece = findPiece(x, y);
-      if (foundPiece) {
+      let thisTurnColor = isWhiteTurn ? "white" : "black";
+      if (foundPiece && foundPiece.color === thisTurnColor) {
         setPossibleWays(foundPiece.possibleWays(pieces));
         setSetlectedPiece(foundPiece);
       }
@@ -33,12 +35,12 @@ export default function Board() {
       if (selectedPiece.isPossibleWay(pieces, { x, y })) {
         if (nextLocationPiece) {
           setRemovedPieces((prevState) => [...prevState, nextLocationPiece]);
-
           deletePiece(nextLocationPiece.id);
           selectedPiece.location = { x, y };
         } else {
           selectedPiece.location = { x, y };
         }
+        setIsWhiteTurn(isWhiteTurn ? false : true);
       }
 
       setSetlectedPiece(null);
@@ -76,10 +78,15 @@ export default function Board() {
           })
         )}
       </div>
-      {removedPieces.map((piece) => (
-        <h5 key={piece.id}>{piece.markup}</h5>
-      ))}
-      {!selectedPiece && <h4>select one piece</h4>}
+      <div className="board-wrapper__details">
+        {!selectedPiece && <h4>select one piece</h4>}
+        {isWhiteTurn ? <h6>white turn</h6> : <h6>black turn</h6>}
+        <div className="board__removed-pieces">
+          {removedPieces.map((piece) => (
+            <h5 key={piece.id}>{piece.markup}</h5>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

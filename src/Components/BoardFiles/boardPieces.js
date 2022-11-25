@@ -16,4 +16,5 @@ export default [
   new Knight(10, { x: 7, y: 1 }, "white"),
   new Bishop(11, { x: 7, y: 2 }, "white"),
   new King(12, { x: 0, y: 4 }, "black"),
+  new King(13, { x: 7, y: 4 }, "white"),
 ];

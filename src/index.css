@@ -26,6 +26,15 @@ code {
 .board__btn {
   height: 20px;
 }
+.board-wrapper__details {
+  position: relative;
+}
+.board__removed-pieces {
+  display: flex;
+  word-wrap: break-word;
+  position: absolute;
+  top: 100px;
+}
 .board--rotate,
 .piece--rotate,
 .square__location--rotate {
