@@ -14,4 +14,17 @@ export default class ChessPiece {
     );
     return way ? true : false;
   }
+  removeEnemyKingFromWays(ways, boardPieces) {
+    const enemyKing = boardPieces.find(
+      (piece) => piece.color !== this.color && piece.type === "king"
+    );
+    let enemyKingIndexInWays;
+    if (enemyKing)
+      enemyKingIndexInWays = ways.findIndex(
+        (way) =>
+          way.x === enemyKing.location.x && way.y === enemyKing.location.y
+      );
+    if (enemyKing && enemyKingIndexInWays !== -1)
+      ways.splice(enemyKingIndexInWays, 1);
+  }
 }

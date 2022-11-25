@@ -1,6 +1,7 @@
 import Rook from "../ChessPieces/Rook";
 import Knight from "../ChessPieces/Knight";
 import Bishop from "./../ChessPieces/Bishop";
+import King from "../ChessPieces/King";
 export default [
   new Rook(0, { x: 0, y: 0 }, "black"),
   new Rook(1, { x: 0, y: 7 }, "black"),
@@ -14,4 +15,5 @@ export default [
   new Rook(9, { x: 7, y: 0 }, "white"),
   new Knight(10, { x: 7, y: 1 }, "white"),
   new Bishop(11, { x: 7, y: 2 }, "white"),
+  new King(12, { x: 0, y: 4 }, "black"),
 ];

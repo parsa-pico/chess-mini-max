@@ -53,6 +53,7 @@ export default class Knight extends ChessPiece {
       )
         ways.splice(index, 1);
     });
+    this.removeEnemyKingFromWays(ways, boardPieces);
     return ways;
   }
 }

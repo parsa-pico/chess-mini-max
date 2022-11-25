@@ -59,6 +59,7 @@ export default class Bishop extends ChessPiece {
       if (!obstacle || obstacle.color !== this.color) ways.push({ x, y });
       if (obstacle) break;
     }
+    this.removeEnemyKingFromWays(ways, boardPieces);
     return ways;
   }
 }

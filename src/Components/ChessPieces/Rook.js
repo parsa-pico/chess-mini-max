@@ -52,6 +52,7 @@ export default class Rook extends ChessPiece {
         ways.push({ y, x: this.location.x });
       if (obstacle) break;
     }
+    this.removeEnemyKingFromWays(ways, boardPieces);
     return ways;
   }
 }
