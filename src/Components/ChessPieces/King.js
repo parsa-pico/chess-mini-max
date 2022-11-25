@@ -1,5 +1,6 @@
 import KingMarkup from "./Markups/King";
 import ChessPiece from "./ChessPiece";
+import _ from "underscore";
 import { allPossibleWays } from "./../BoardFiles/boardFunctions";
 export default class King extends ChessPiece {
   constructor(id, location, color) {
@@ -31,8 +32,25 @@ export default class King extends ChessPiece {
         }
       }
     }
-
+    this.checkForNextMove(ways, boardPieces);
     this.removeEnemyKingFromWays(ways, boardPieces);
+
     return ways;
+  }
+
+  checkForNextMove(ways, boardPieces) {
+    let piecesCopy = [...boardPieces];
+    const index = piecesCopy.findIndex((piece) => piece.id === this.id);
+    piecesCopy.splice(index, 1);
+    let deleteArray = [];
+    ways.forEach((way, index) => {
+      if (
+        allPossibleWays(piecesCopy, this.enemyColor).find((enemyWay) =>
+          _.isEqual(enemyWay, way)
+        )
+      )
+        deleteArray.push(index);
+    });
+    deleteArray.reverse().forEach((index) => ways.splice(index, 1));
   }
 }

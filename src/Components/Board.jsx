@@ -58,6 +58,7 @@ export default function Board() {
     const foundPiece = findPiece(x, y);
     if (foundPiece) return foundPiece.markup;
   }
+
   function selectOrMovePiece(x, y) {
     if (!selectedPiece) {
       const foundPiece = findPiece(x, y);
