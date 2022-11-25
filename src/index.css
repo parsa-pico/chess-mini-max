@@ -37,7 +37,12 @@ code {
 .square--red {
   background-color: brown;
 }
-
+.square__location {
+  position: absolute;
+  font-size: 5px;
+  z-index: 5;
+  align-self: center;
+}
 .piece {
   cursor: pointer;
   font-size: 48px;

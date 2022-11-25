@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Square from "./Square";
-import RookClass from "./ChessPieces/Rook";
 import { isVerifiedMove } from "./BoardFiles/boardFunctions";
 import BoardModel from "./BoardFiles/boardModel";
 export default function Board() {
+  // x is vertical postion,y is horizontal
   const [x, setX] = useState([0, 1, 2, 3, 4, 5, 6, 7]);
   const [y, setY] = useState([0, 1, 2, 3, 4, 5, 6, 7]);
   const [pieces, setPieces] = useState(BoardModel);
@@ -23,6 +23,7 @@ export default function Board() {
   function selectOrMovePiece(x, y) {
     if (!selectedPiece) {
       const foundPiece = findPiece(x, y);
+      console.log(foundPiece.possibleWays());
       setSetlectedPiece(foundPiece);
     } else {
       const nextLocationPiece = findPiece(x, y);
@@ -36,13 +37,12 @@ export default function Board() {
           selectedPiece.location = { x, y };
         }
       } else if (selectedPiece.isVerifiedMove({ x, y })) {
-        console.log("hi");
         selectedPiece.location = { x, y };
       }
       setSetlectedPiece(null);
     }
   }
-  console.log(removedPieces);
+
   return (
     <div className="board-wrapper">
       <div className="board">

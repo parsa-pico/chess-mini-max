@@ -13,4 +13,13 @@ export default class Rook extends ChessPiece {
       return true;
     return false;
   }
+  possibleWays() {
+    let ways = [];
+    for (let x = 0; x <= 7; x++)
+      if (x !== this.location.x) ways.push({ x, y: this.location.y });
+
+    for (let y = 0; y <= 7; y++)
+      if (y !== this.location.y) ways.push({ x: this.location.x, y });
+    return ways;
+  }
 }

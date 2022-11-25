@@ -11,6 +11,9 @@ export default function Square({
       onClick={() => findOrMovePiece(location.x, location.y)}
       className={`square square--${squareColor}`}
     >
+      <span className="square__location">
+        x={location.x},y={location.y}
+      </span>
       {children}
     </span>
   );

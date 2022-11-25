@@ -6,4 +6,5 @@ export default class ChessPiece {
     this.type = type;
   }
   isVerifiedMove() {}
+  possibleWays() {}
 }
