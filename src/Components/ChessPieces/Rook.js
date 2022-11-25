@@ -5,14 +5,14 @@ export default class Rook extends ChessPiece {
     super(id, location, color, "rook");
     this.markup = <RookMarkup color={color} />;
   }
-  isVerifiedMove(nextLocation) {
-    if (
-      this.location.x === nextLocation.x ||
-      this.location.y === nextLocation.y
-    )
-      return true;
-    return false;
-  }
+  // isVerifiedMove(nextLocation) {
+  //   if (
+  //     this.location.x === nextLocation.x ||
+  //     this.location.y === nextLocation.y
+  //   )
+  //     return true;
+  //   return false;
+  // }
   possibleWays(boardPieces) {
     let ways = [];
     for (let x = this.location.x - 1; x >= 0; x--) {
