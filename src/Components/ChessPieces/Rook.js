@@ -53,11 +53,4 @@ export default class Rook extends ChessPiece {
     }
     return ways;
   }
-  isPossibleWay(boardPieces, nextLocation) {
-    const ways = this.possibleWays(boardPieces);
-    const way = ways.find(
-      (way) => way.x === nextLocation.x && way.y === nextLocation.y
-    );
-    return way ? true : false;
-  }
 }
