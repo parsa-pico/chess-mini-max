@@ -27,4 +27,8 @@ export default class ChessPiece {
     if (enemyKing && enemyKingIndexInWays !== -1)
       ways.splice(enemyKingIndexInWays, 1);
   }
+
+  get enemyColor() {
+    return this.color === "white" ? "black" : "white";
+  }
 }

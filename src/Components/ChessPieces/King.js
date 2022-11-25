@@ -1,5 +1,6 @@
 import KingMarkup from "./Markups/King";
 import ChessPiece from "./ChessPiece";
+import { allPossibleWays } from "./../BoardFiles/boardFunctions";
 export default class King extends ChessPiece {
   constructor(id, location, color) {
     super(id, location, color, "king");
@@ -17,15 +18,20 @@ export default class King extends ChessPiece {
           y + this.location.y <= 7 &&
           !boardPieces.find(
             (piece) =>
-              piece.location.x === x + this.location.x &&
-              piece.location.y === y + this.location.y &&
+              piece.location.x === this.location.x + x &&
+              piece.location.y === this.location.y + y &&
               piece.color === this.color
+          ) &&
+          !allPossibleWays(boardPieces, this.enemyColor).find(
+            (way) =>
+              way.x === this.location.x + x && way.y === this.location.y + y
           )
         ) {
           ways.push({ x: this.location.x + x, y: this.location.y + y });
         }
       }
     }
+
     this.removeEnemyKingFromWays(ways, boardPieces);
     return ways;
   }

@@ -16,10 +16,11 @@ Array.prototype.unique = function () {
 
 export function allPossibleWays(boardPieces, color) {
   let ways = [];
+
   boardPieces
     .filter((piece) => piece.color === color)
     .forEach((piece) => {
-      ways.push(...piece.possibleWays(boardPieces));
+      if (piece.type !== "king") ways.push(...piece.possibleWays(boardPieces));
     });
 
   const uniqueWays = ways.unique();

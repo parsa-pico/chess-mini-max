@@ -12,13 +12,14 @@ export default function Board() {
   const [removedPieces, setRemovedPieces] = useState([]);
   const [selectedPiece, setSetlectedPiece] = useState(null);
   const [possibleWays, setPossibleWays] = useState([]);
-  useEffect(() => {
-    const color = isWhiteTurn ? "black" : "white";
-    const allWays = allPossibleWays(pieces, color);
+  // useEffect(() => {
+  //   const color = isWhiteTurn ? "black" : "white";
+  //   const allWays = allPossibleWays(pieces, color);
 
-    setPossibleWays(allWays);
-    console.log("all ways for:", color);
-  }, [isWhiteTurn]);
+  //   setPossibleWays(allWays);
+  //   console.log("all ways for:", color);
+  // }, [isWhiteTurn]);
+  //
   //computer plays as black
   //random move
   // useEffect(() => {
