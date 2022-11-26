@@ -31,4 +31,6 @@ export default class ChessPiece {
   get enemyColor() {
     return this.color === "white" ? "black" : "white";
   }
+
+  dontLeaveKing(piece, ways) {}
 }
