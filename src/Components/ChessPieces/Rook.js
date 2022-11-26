@@ -13,7 +13,11 @@ export default class Rook extends ChessPiece {
   //     return true;
   //   return false;
   // }
-  possibleWays(boardPieces) {
+  possibleWays(
+    boardPieces,
+    isForAllPossibleWays = false,
+    isForKingCheck = false
+  ) {
     let ways = [];
 
     for (let x = this.location.x - 1; x >= 0; x--) {
@@ -52,7 +56,7 @@ export default class Rook extends ChessPiece {
         ways.push({ y, x: this.location.x });
       if (obstacle) break;
     }
-    this.removeEnemyKingFromWays(ways, boardPieces);
+    if (!isForKingCheck) this.removeEnemyKingFromWays(ways, boardPieces);
     return ways;
   }
 }

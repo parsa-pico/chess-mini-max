@@ -7,7 +7,11 @@ export default class Bishop extends ChessPiece {
     this.markup = <BishopMarkup color={color} />;
   }
 
-  possibleWays(boardPieces) {
+  possibleWays(
+    boardPieces,
+    isForAllPossibleWays = false,
+    isForKingCheck = false
+  ) {
     let ways = [];
     let x;
     let y;
@@ -59,7 +63,7 @@ export default class Bishop extends ChessPiece {
       if (!obstacle || obstacle.color !== this.color) ways.push({ x, y });
       if (obstacle) break;
     }
-    this.removeEnemyKingFromWays(ways, boardPieces);
+    if (!isForKingCheck) this.removeEnemyKingFromWays(ways, boardPieces);
     return ways;
   }
 }

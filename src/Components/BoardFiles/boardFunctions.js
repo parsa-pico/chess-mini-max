@@ -14,16 +14,28 @@ Array.prototype.unique = function () {
   return uniqueArray;
 };
 
-export function allPossibleWays(boardPieces, color) {
+export function allPossibleWays(boardPieces, color, isForKingCheck = false) {
   let ways = [];
 
   boardPieces
     .filter((piece) => piece.color === color)
     .forEach((piece) => {
-      ways.push(...piece.possibleWays(boardPieces, true));
+      ways.push(...piece.possibleWays(boardPieces, true, isForKingCheck));
     });
 
   const uniqueWays = ways.unique();
 
   return uniqueWays;
+}
+export function checkForKingAttack(pieces, isWhiteTurn) {
+  const thisTurnColor = isWhiteTurn ? "white" : "black";
+  const enemyColor = isWhiteTurn ? "black" : "white";
+  const king = pieces.find(
+    (piece) => piece.type === "king" && piece.color === thisTurnColor
+  );
+
+  const result = allPossibleWays(pieces, enemyColor, true).find((way) => {
+    return _.isEqual(way, king.location);
+  });
+  return result;
 }

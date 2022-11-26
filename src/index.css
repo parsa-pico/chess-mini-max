@@ -58,6 +58,9 @@ code {
   background-color: green;
   cursor: pointer;
 }
+.square--hot-red {
+  background-color: rgb(83, 0, 0);
+}
 .square__location {
   position: absolute;
   font-size: 5px;

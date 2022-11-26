@@ -27,7 +27,11 @@ export default class Knight extends ChessPiece {
   //   return false;
   // }
 
-  possibleWays(boardPieces) {
+  possibleWays(
+    boardPieces,
+    isForAllPossibleWays = false,
+    isForKingCheck = false
+  ) {
     let ways = [
       { x: this.location.x + 2, y: this.location.y + 1 },
       { x: this.location.x + 2, y: this.location.y - 1 },
@@ -55,7 +59,7 @@ export default class Knight extends ChessPiece {
         deleteArray.push(index);
     }
     deleteArray.reverse().forEach((index) => ways.splice(index, 1));
-    this.removeEnemyKingFromWays(ways, boardPieces);
+    if (!isForKingCheck) this.removeEnemyKingFromWays(ways, boardPieces);
 
     return ways;
   }
