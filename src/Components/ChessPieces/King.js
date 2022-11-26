@@ -7,18 +7,18 @@ export default class King extends ChessPiece {
     super(id, location, color, "king");
     this.markup = <KingMarkup color={color} />;
   }
-
+  // TODO: find a better way instead of isFoAllPossibleWays
   possibleWays(boardPieces, isForAllPossibleWays = false) {
     let ways = [];
     for (let x = -1; x <= 1; x++) {
       for (let y = -1; y <= 1; y++) {
-        let enemyWay;
-        if (!isForAllPossibleWays) {
-          enemyWay = allPossibleWays(boardPieces, this.enemyColor).find(
-            (way) =>
-              way.x === this.location.x + x && way.y === this.location.y + y
-          );
-        }
+        // let enemyWay;
+        // if (!isForAllPossibleWays) {
+        //   enemyWay = allPossibleWays(boardPieces, this.enemyColor).find(
+        //     (way) =>
+        //       way.x === this.location.x + x && way.y === this.location.y + y
+        //   );
+        // }
 
         if (
           x + this.location.x >= 0 &&
@@ -30,8 +30,9 @@ export default class King extends ChessPiece {
               piece.location.x === this.location.x + x &&
               piece.location.y === this.location.y + y &&
               piece.color === this.color
-          ) &&
-          !enemyWay
+          )
+          //  &&
+          // !enemyWay
         ) {
           ways.push({ x: this.location.x + x, y: this.location.y + y });
         }
