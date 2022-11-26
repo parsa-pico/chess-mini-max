@@ -1,3 +1,7 @@
+import {
+  arbitaryMove,
+  checkForKingAttack,
+} from "./../BoardFiles/boardFunctions";
 export default class ChessPiece {
   constructor(id, location, color, type) {
     this.id = id;
@@ -32,7 +36,16 @@ export default class ChessPiece {
     return this.color === "white" ? "black" : "white";
   }
 
-  dontLeaveKing(piece, ways) {
+  dontLeaveKing(pieces, ways) {
     let deleteArray = [];
+
+    const isWhiteTurn = this.color === "white" ? true : false;
+
+    ways.forEach((way, index) => {
+      const arbitaryPieces = arbitaryMove(pieces, this, way.x, way.y, false);
+      const result = checkForKingAttack(arbitaryPieces, isWhiteTurn);
+      if (result) deleteArray.push(index);
+    });
+    deleteArray.reverse().forEach((index) => ways.splice(index, 1));
   }
 }

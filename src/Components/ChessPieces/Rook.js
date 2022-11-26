@@ -5,14 +5,7 @@ export default class Rook extends ChessPiece {
     super(id, location, color, "rook");
     this.markup = <RookMarkup color={color} />;
   }
-  // isVerifiedMove(nextLocation) {
-  //   if (
-  //     this.location.x === nextLocation.x ||
-  //     this.location.y === nextLocation.y
-  //   )
-  //     return true;
-  //   return false;
-  // }
+
   possibleWays(
     boardPieces,
     isForAllPossibleWays = false,
@@ -56,7 +49,9 @@ export default class Rook extends ChessPiece {
         ways.push({ y, x: this.location.x });
       if (obstacle) break;
     }
+
     if (!isForKingCheck) this.removeEnemyKingFromWays(ways, boardPieces);
+    if (!isForAllPossibleWays) this.dontLeaveKing(boardPieces, ways);
     return ways;
   }
 }

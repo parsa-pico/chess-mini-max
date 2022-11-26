@@ -64,6 +64,7 @@ export default class Bishop extends ChessPiece {
       if (obstacle) break;
     }
     if (!isForKingCheck) this.removeEnemyKingFromWays(ways, boardPieces);
+    if (!isForAllPossibleWays) this.dontLeaveKing(boardPieces, ways);
     return ways;
   }
 }

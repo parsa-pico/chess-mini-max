@@ -39,14 +39,15 @@ export function checkForKingAttack(pieces, isWhiteTurn) {
   });
   return result;
 }
-export function arbitaryMove(pieces, piece, x, y) {
+export function arbitaryMove(pieces, piece, x, y, checkForPossibleWay = true) {
   const piecesCopy = pieces.map((piece) => {
     const clone = Object.assign({}, piece);
     Object.setPrototypeOf(clone, piece);
     return clone;
   });
+
   piece = piecesCopy.find((p) => p.id === piece.id);
-  movePiece(piecesCopy, piece, x, y, true);
+  movePiece(piecesCopy, piece, x, y, true, checkForPossibleWay);
   return piecesCopy;
 }
 export function movePiece(
@@ -55,14 +56,17 @@ export function movePiece(
   x,
   y,
   isArbitaryMove = false,
+  checkForPossibleWay = true,
   setRemovedPieces,
   setIsWhiteTurn,
   isWhiteTurn,
   setPieces
 ) {
   const nextLocationPiece = findPiece(pieces, x, y);
-
-  if (piece.isPossibleWay(pieces, { x, y })) {
+  let isPossible;
+  if (checkForPossibleWay)
+    isPossible = piece.isPossibleWay(pieces, { x, y }, isArbitaryMove);
+  if (!checkForPossibleWay || piece.isPossibleWay(pieces, { x, y })) {
     if (nextLocationPiece) {
       if (!isArbitaryMove)
         setRemovedPieces((prevState) => [...prevState, nextLocationPiece]);

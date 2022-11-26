@@ -51,7 +51,6 @@ export default function Board() {
   useEffect(() => {
     const color = isWhiteTurn ? "white" : "black";
     const result = checkForKingAttack(pieces, isWhiteTurn);
-    console.log("for" + color, "turn", result);
     if (result) setKingAttackedLocation(result);
   }, [isWhiteTurn]);
 
@@ -67,28 +66,39 @@ export default function Board() {
 
   function selectOrMovePiece(x, y) {
     if (!selectedPiece) {
-      const foundPiece = findPiece(pieces, x, y);
       let thisTurnColor = isWhiteTurn ? "white" : "black";
-      if (foundPiece && foundPiece.color === thisTurnColor) {
-        setPossibleWays(foundPiece.possibleWays(pieces));
-        setSetlectedPiece(foundPiece);
+      const foundPiece = findPiece(pieces, x, y);
+      let piecePossibleWays;
+      //console.log(foundPiece.possibleWays(pieces));
+      if (foundPiece) {
+        piecePossibleWays = foundPiece.possibleWays(pieces);
+
+        if (
+          foundPiece.color === thisTurnColor &&
+          piecePossibleWays.length !== 0
+        ) {
+          setPossibleWays(piecePossibleWays);
+          setSetlectedPiece(foundPiece);
+        }
       }
     } else {
       const arbitaryPieces = arbitaryMove(pieces, selectedPiece, x, y);
       const result = checkForKingAttack(arbitaryPieces, isWhiteTurn);
-      if (!result)
+      if (!result) {
         movePiece(
           pieces,
           selectedPiece,
           x,
           y,
           false,
+          true,
           setRemovedPieces,
           setIsWhiteTurn,
           isWhiteTurn,
           setPieces
         );
-      if (kingAttackedLocation) setKingAttackedLocation(null);
+        if (kingAttackedLocation) setKingAttackedLocation(null);
+      }
       setSetlectedPiece(null);
       setPossibleWays([]);
     }
