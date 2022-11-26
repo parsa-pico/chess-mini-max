@@ -69,7 +69,7 @@ export default function Board() {
       let thisTurnColor = isWhiteTurn ? "white" : "black";
       const foundPiece = findPiece(pieces, x, y);
       let piecePossibleWays;
-      //console.log(foundPiece.possibleWays(pieces));
+
       if (foundPiece) {
         piecePossibleWays = foundPiece.possibleWays(pieces);
 
