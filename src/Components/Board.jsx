@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Square from "./Square";
 import {
-  allPossibleWays,
+  findPiece,
+  movePiece,
+  arbitaryMove,
   checkForKingAttack,
 } from "./BoardFiles/boardFunctions";
 import boardPieces from "./BoardFiles/boardPieces";
-import _, { result } from "underscore";
+import _ from "underscore";
 export default function Board() {
   // x is vertical postion,y is horizontal
   const [x, setX] = useState([0, 1, 2, 3, 4, 5, 6, 7]);
@@ -57,13 +59,7 @@ export default function Board() {
     const randInt = Math.floor(Math.random() * (max - min) + min);
     return randInt;
   }
-  function findPiece(pieces, x, y) {
-    const foundPiece = pieces.find(
-      (piece) => piece.location.x === x && piece.location.y === y
-    );
-    if (foundPiece) return foundPiece;
-    return null;
-  }
+
   function renderPiece(x, y) {
     const foundPiece = findPiece(pieces, x, y);
     if (foundPiece) return foundPiece.markup;
@@ -80,44 +76,22 @@ export default function Board() {
     } else {
       const arbitaryPieces = arbitaryMove(pieces, selectedPiece, x, y);
       const result = checkForKingAttack(arbitaryPieces, isWhiteTurn);
-      if (!result) movePiece(pieces, selectedPiece, x, y);
+      if (!result)
+        movePiece(
+          pieces,
+          selectedPiece,
+          x,
+          y,
+          false,
+          setRemovedPieces,
+          setIsWhiteTurn,
+          isWhiteTurn,
+          setPieces
+        );
       if (kingAttackedLocation) setKingAttackedLocation(null);
       setSetlectedPiece(null);
       setPossibleWays([]);
     }
-  }
-
-  function arbitaryMove(pieces, piece, x, y) {
-    const piecesCopy = pieces.map((piece) => {
-      const clone = Object.assign({}, piece);
-      Object.setPrototypeOf(clone, piece);
-      return clone;
-    });
-    piece = piecesCopy.find((p) => p.id === piece.id);
-    movePiece(piecesCopy, piece, x, y, true);
-    return piecesCopy;
-  }
-  function movePiece(pieces, piece, x, y, isArbitaryMove = false) {
-    const nextLocationPiece = findPiece(pieces, x, y);
-
-    if (piece.isPossibleWay(pieces, { x, y })) {
-      if (nextLocationPiece) {
-        if (!isArbitaryMove)
-          setRemovedPieces((prevState) => [...prevState, nextLocationPiece]);
-        deletePiece(pieces, nextLocationPiece.id, isArbitaryMove);
-        piece.location = { x, y };
-      } else {
-        piece.location = { x, y };
-      }
-      if (!isArbitaryMove) setIsWhiteTurn(isWhiteTurn ? false : true);
-    }
-  }
-  function deletePiece(pieces, id, isForArbitaryMove = false) {
-    let piecesCopy;
-    piecesCopy = isForArbitaryMove ? pieces : [...pieces];
-    const index = piecesCopy.findIndex((piece) => piece.id === id);
-    piecesCopy.splice(index, 1);
-    if (!isForArbitaryMove) setPieces(piecesCopy);
   }
 
   return (

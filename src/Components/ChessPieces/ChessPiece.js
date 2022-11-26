@@ -32,5 +32,7 @@ export default class ChessPiece {
     return this.color === "white" ? "black" : "white";
   }
 
-  dontLeaveKing(piece, ways) {}
+  dontLeaveKing(piece, ways) {
+    let deleteArray = [];
+  }
 }

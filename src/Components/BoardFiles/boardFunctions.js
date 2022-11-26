@@ -39,3 +39,52 @@ export function checkForKingAttack(pieces, isWhiteTurn) {
   });
   return result;
 }
+export function arbitaryMove(pieces, piece, x, y) {
+  const piecesCopy = pieces.map((piece) => {
+    const clone = Object.assign({}, piece);
+    Object.setPrototypeOf(clone, piece);
+    return clone;
+  });
+  piece = piecesCopy.find((p) => p.id === piece.id);
+  movePiece(piecesCopy, piece, x, y, true);
+  return piecesCopy;
+}
+export function movePiece(
+  pieces,
+  piece,
+  x,
+  y,
+  isArbitaryMove = false,
+  setRemovedPieces,
+  setIsWhiteTurn,
+  isWhiteTurn,
+  setPieces
+) {
+  const nextLocationPiece = findPiece(pieces, x, y);
+
+  if (piece.isPossibleWay(pieces, { x, y })) {
+    if (nextLocationPiece) {
+      if (!isArbitaryMove)
+        setRemovedPieces((prevState) => [...prevState, nextLocationPiece]);
+      deletePiece(pieces, nextLocationPiece.id, isArbitaryMove, setPieces);
+      piece.location = { x, y };
+    } else {
+      piece.location = { x, y };
+    }
+    if (!isArbitaryMove) setIsWhiteTurn(isWhiteTurn ? false : true);
+  }
+}
+export function deletePiece(pieces, id, isForArbitaryMove = false, setPieces) {
+  let piecesCopy;
+  piecesCopy = isForArbitaryMove ? pieces : [...pieces];
+  const index = piecesCopy.findIndex((piece) => piece.id === id);
+  piecesCopy.splice(index, 1);
+  if (!isForArbitaryMove) setPieces(piecesCopy);
+}
+export function findPiece(pieces, x, y) {
+  const foundPiece = pieces.find(
+    (piece) => piece.location.x === x && piece.location.y === y
+  );
+  if (foundPiece) return foundPiece;
+  return null;
+}
