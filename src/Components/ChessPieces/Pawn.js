@@ -19,7 +19,8 @@ export default class Pawn extends ChessPiece {
     //two step ahead
     if (this.firstLocation === this.location) {
       x = this.color === "white" ? this.location.x - 2 : this.location.x + 2;
-      ways.push({ x, y });
+      const obstacle = findPiece(boardPieces, x, y);
+      if (!obstacle) ways.push({ x, y });
     }
     //one step ahead
     x = this.color === "white" ? this.location.x - 1 : this.location.x + 1;

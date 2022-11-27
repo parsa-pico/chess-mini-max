@@ -5,7 +5,9 @@ import {
   movePiece,
   arbitaryMove,
   checkForKingAttack,
-  evaluateOnWhite,
+  nextBestMoveForWhite,
+  miniMax,
+  allBoardsForPossibleWays,
 } from "./BoardFiles/boardFunctions";
 import boardPieces from "./BoardFiles/boardPieces";
 import _ from "underscore";
@@ -20,38 +22,9 @@ export default function Board() {
   const [selectedPiece, setSetlectedPiece] = useState(null);
   const [possibleWays, setPossibleWays] = useState([]);
   const [isGameFinished, setIsGameFinished] = useState(false);
-  // useEffect(() => {
-  //   const color = isWhiteTurn ? "black" : "white";
-  //   const allWays = allPossibleWays(pieces, color);
-
-  //   setPossibleWays(allWays);
-  //   console.log("all ways for:", color);
-  // }, [isWhiteTurn]);
-  //
-  //computer plays as black
-  //random move
-  // useEffect(() => {
-  //   let BlackPiece;
-  //   let blackPossibleWays = [];
-  //   let nextLocation;
-  //   if (!isWhiteTurn) {
-  //     while (blackPossibleWays.length === 0) {
-  //       while (!BlackPiece) {
-  //         BlackPiece = pieces.find(
-  //           (piece) => piece.id === randomInt(0, 32) && piece.color === "black"
-  //         );
-  //       }
-  //       blackPossibleWays = BlackPiece.possibleWays(pieces);
-  //       // console.log(blackPossibleWays);
-  //       const randPossibleWayIndex = randomInt(0, blackPossibleWays.length - 1);
-  //       nextLocation = blackPossibleWays[randPossibleWayIndex];
-  //     }
-
-  //     movePiece(BlackPiece, nextLocation.x, nextLocation.y);
-  //   }
-  // }, [isWhiteTurn]);
+  const [t, setT] = useState(0);
   useEffect(() => {
-    console.log(evaluateOnWhite(pieces));
+    let r;
     const color = isWhiteTurn ? "white" : "black";
     const result = checkForKingAttack(pieces, isWhiteTurn);
     if (result) setKingAttackedLocation(result);
@@ -62,6 +35,23 @@ export default function Board() {
         allPossibleWaysForThisTurn.push(...p.possibleWays(pieces))
       );
     if (allPossibleWaysForThisTurn.length === 0) setIsGameFinished(true);
+    setT(1);
+    if (isWhiteTurn) {
+      console.log("hi");
+      r = miniMax(pieces, 2, true);
+      movePiece(
+        pieces,
+        r.bestWay.piece,
+        r.bestWay.way.x,
+        r.bestWay.way.y,
+        false,
+        true,
+        setRemovedPieces,
+        setIsWhiteTurn,
+        isWhiteTurn,
+        setPieces
+      );
+    }
   }, [isWhiteTurn]);
 
   function renderPiece(x, y) {

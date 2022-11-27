@@ -70,6 +70,7 @@ code {
 .piece {
   cursor: pointer;
   font-size: 48px;
+  transition: all 2s;
 }
 .piece--white {
   color: burlywood;
