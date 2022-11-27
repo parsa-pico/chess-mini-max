@@ -13,7 +13,13 @@ Array.prototype.unique = function () {
   });
   return uniqueArray;
 };
-
+export function evaluateOnWhite(pieces) {
+  let sum = 0;
+  pieces.forEach((piece) => {
+    sum = piece.color === "white" ? sum + piece.weight : sum - piece.weight;
+  });
+  return sum;
+}
 export function randomInt(min, max) {
   const randInt = Math.floor(Math.random() * (max - min) + min);
   return randInt;

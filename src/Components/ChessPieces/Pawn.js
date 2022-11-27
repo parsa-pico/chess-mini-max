@@ -3,7 +3,7 @@ import ChessPiece from "./ChessPiece";
 import { findPiece } from "../BoardFiles/boardFunctions";
 export default class Pawn extends ChessPiece {
   constructor(id, location, color) {
-    super(id, location, color, "pawn");
+    super(id, location, color, "pawn", 1);
     this.markup = <PawnMarkup color={color} />;
     this.firstLocation = location;
   }

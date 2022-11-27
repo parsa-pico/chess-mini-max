@@ -5,6 +5,7 @@ import {
   movePiece,
   arbitaryMove,
   checkForKingAttack,
+  evaluateOnWhite,
 } from "./BoardFiles/boardFunctions";
 import boardPieces from "./BoardFiles/boardPieces";
 import _ from "underscore";
@@ -50,6 +51,7 @@ export default function Board() {
   //   }
   // }, [isWhiteTurn]);
   useEffect(() => {
+    console.log(evaluateOnWhite(pieces));
     const color = isWhiteTurn ? "white" : "black";
     const result = checkForKingAttack(pieces, isWhiteTurn);
     if (result) setKingAttackedLocation(result);

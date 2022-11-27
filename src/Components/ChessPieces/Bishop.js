@@ -3,7 +3,7 @@ import BishopMarkup from "./Markups/Bishop";
 
 export default class Bishop extends ChessPiece {
   constructor(id, location, color) {
-    super(id, location, color, "bishop");
+    super(id, location, color, "bishop", 3);
     this.markup = <BishopMarkup color={color} />;
   }
 

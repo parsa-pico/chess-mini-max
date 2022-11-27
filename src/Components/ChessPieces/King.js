@@ -4,7 +4,7 @@ import _ from "underscore";
 import { allPossibleWays } from "./../BoardFiles/boardFunctions";
 export default class King extends ChessPiece {
   constructor(id, location, color) {
-    super(id, location, color, "king");
+    super(id, location, color, "king", 0);
     this.markup = <KingMarkup color={color} />;
   }
   // TODO: find a better way instead of isFoAllPossibleWays

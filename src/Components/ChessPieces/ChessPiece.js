@@ -3,11 +3,12 @@ import {
   checkForKingAttack,
 } from "./../BoardFiles/boardFunctions";
 export default class ChessPiece {
-  constructor(id, location, color, type) {
+  constructor(id, location, color, type, weight) {
     this.id = id;
     this.location = location;
     this.color = color;
     this.type = type;
+    this.weight = weight;
   }
   isVerifiedMove() {}
   possibleWays() {}
