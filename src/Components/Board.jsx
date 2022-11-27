@@ -73,13 +73,10 @@ export default function Board() {
       const foundPiece = findPiece(pieces, x, y);
       let piecePossibleWays;
 
-      if (foundPiece) {
+      if (foundPiece && foundPiece.color === thisTurnColor) {
         piecePossibleWays = foundPiece.possibleWays(pieces);
 
-        if (
-          foundPiece.color === thisTurnColor &&
-          piecePossibleWays.length !== 0
-        ) {
+        if (piecePossibleWays.length !== 0) {
           setPossibleWays(piecePossibleWays);
           setSetlectedPiece(foundPiece);
         }
@@ -87,6 +84,7 @@ export default function Board() {
     } else {
       const arbitaryPieces = arbitaryMove(pieces, selectedPiece, x, y);
       const result = checkForKingAttack(arbitaryPieces, isWhiteTurn);
+
       if (!result) {
         movePiece(
           pieces,
