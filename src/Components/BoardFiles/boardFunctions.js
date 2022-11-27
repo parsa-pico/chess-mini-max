@@ -90,10 +90,13 @@ export function deletePiece(pieces, id, isForArbitaryMove = false, setPieces) {
   piecesCopy.splice(index, 1);
   if (!isForArbitaryMove) setPieces(piecesCopy);
 }
-export function findPiece(pieces, x, y) {
-  const foundPiece = pieces.find(
-    (piece) => piece.location.x === x && piece.location.y === y
-  );
+export function findPiece(pieces, x, y, color) {
+  const foundPiece = pieces.find((piece) => {
+    const c = color ? color : piece.color;
+    return (
+      piece.location.x === x && piece.location.y === y && piece.color === c
+    );
+  });
   if (foundPiece) return foundPiece;
   return null;
 }
