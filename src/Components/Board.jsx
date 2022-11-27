@@ -18,6 +18,7 @@ export default function Board() {
   const [removedPieces, setRemovedPieces] = useState([]);
   const [selectedPiece, setSetlectedPiece] = useState(null);
   const [possibleWays, setPossibleWays] = useState([]);
+  const [isGameFinished, setIsGameFinished] = useState(false);
   // useEffect(() => {
   //   const color = isWhiteTurn ? "black" : "white";
   //   const allWays = allPossibleWays(pieces, color);
@@ -52,12 +53,14 @@ export default function Board() {
     const color = isWhiteTurn ? "white" : "black";
     const result = checkForKingAttack(pieces, isWhiteTurn);
     if (result) setKingAttackedLocation(result);
+    let allPossibleWaysForThisTurn = [];
+    pieces
+      .filter((p) => p.color === color)
+      .forEach((p) =>
+        allPossibleWaysForThisTurn.push(...p.possibleWays(pieces))
+      );
+    if (allPossibleWaysForThisTurn.length === 0) setIsGameFinished(true);
   }, [isWhiteTurn]);
-
-  function randomInt(min, max) {
-    const randInt = Math.floor(Math.random() * (max - min) + min);
-    return randInt;
-  }
 
   function renderPiece(x, y) {
     const foundPiece = findPiece(pieces, x, y);
@@ -131,6 +134,9 @@ export default function Board() {
         )}
       </div>
       <div className="board-wrapper__details">
+        {isGameFinished && (
+          <h3>game finished-winner is {isWhiteTurn ? "black" : "white"}</h3>
+        )}
         {!selectedPiece && <h4>select one piece</h4>}
         {isWhiteTurn ? <h6>white turn</h6> : <h6>black turn</h6>}
         <div className="board__removed-pieces">

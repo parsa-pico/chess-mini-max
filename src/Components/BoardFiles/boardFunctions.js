@@ -14,6 +14,11 @@ Array.prototype.unique = function () {
   return uniqueArray;
 };
 
+export function randomInt(min, max) {
+  const randInt = Math.floor(Math.random() * (max - min) + min);
+  return randInt;
+}
+
 export function allPossibleWays(boardPieces, color, isForKingCheck = false) {
   let ways = [];
 
