@@ -36,7 +36,7 @@ export default class ChessPiece {
     return this.color === "white" ? "black" : "white";
   }
 
-  dontLeaveKing(pieces, ways) {
+  checkForNextMove(pieces, ways) {
     let deleteArray = [];
 
     const isWhiteTurn = this.color === "white" ? true : false;

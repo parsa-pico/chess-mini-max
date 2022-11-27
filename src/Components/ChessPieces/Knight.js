@@ -60,7 +60,7 @@ export default class Knight extends ChessPiece {
     }
     deleteArray.reverse().forEach((index) => ways.splice(index, 1));
     if (!isForKingCheck) this.removeEnemyKingFromWays(ways, boardPieces);
-    if (!isForAllPossibleWays) this.dontLeaveKing(boardPieces, ways);
+    if (!isForAllPossibleWays) this.checkForNextMove(boardPieces, ways);
     return ways;
   }
 }

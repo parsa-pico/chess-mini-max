@@ -42,27 +42,26 @@ export default class King extends ChessPiece {
         }
       }
     }
-    if (!isForAllPossibleWays) this.checkForNextMove(ways, boardPieces);
-
-    //i dont think this ever happens
+    // if (!isForAllPossibleWays) this.checkForNextMove(ways, boardPieces);
+    //i dont think this ever happens(remove enemyking ...)
     this.removeEnemyKingFromWays(ways, boardPieces);
-
+    if (!isForAllPossibleWays) this.checkForNextMove(boardPieces, ways);
     return ways;
   }
 
-  checkForNextMove(ways, boardPieces) {
-    let piecesCopy = [...boardPieces];
-    const index = piecesCopy.findIndex((piece) => piece.id === this.id);
-    piecesCopy.splice(index, 1);
-    let deleteArray = [];
-    ways.forEach((way, index) => {
-      if (
-        allPossibleWays(piecesCopy, this.enemyColor).find((enemyWay) =>
-          _.isEqual(enemyWay, way)
-        )
-      )
-        deleteArray.push(index);
-    });
-    deleteArray.reverse().forEach((index) => ways.splice(index, 1));
-  }
+  // checkForNextMove(ways, boardPieces) {
+  //   let piecesCopy = [...boardPieces];
+  //   const index = piecesCopy.findIndex((piece) => piece.id === this.id);
+  //   piecesCopy.splice(index, 1);
+  //   let deleteArray = [];
+  //   ways.forEach((way, index) => {
+  //     if (
+  //       allPossibleWays(piecesCopy, this.enemyColor).find((enemyWay) =>
+  //         _.isEqual(enemyWay, way)
+  //       )
+  //     )
+  //       deleteArray.push(index);
+  //   });
+  //   deleteArray.reverse().forEach((index) => ways.splice(index, 1));
+  // }
 }
