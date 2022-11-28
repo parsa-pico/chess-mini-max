@@ -38,6 +38,7 @@ export default function Board() {
     setTimeout(() => {
       if (isWhiteTurn) {
         r = miniMax(pieces, 2, true);
+
         const translateX = (r.bestWay.way.x - r.bestWay.piece.location.x) * 50;
         const translateY = (r.bestWay.way.y - r.bestWay.piece.location.y) * 50;
         const element = document.getElementById(r.bestWay.piece.id);

@@ -166,13 +166,13 @@ export function miniMax(board, depth, isMaximizingPlayer) {
   let bestWay = {};
 
   if (depth === 0 || board.length === 0) {
-    return { maxEval: evaluateOnWhite(board) };
+    return { e: evaluateOnWhite(board) };
   }
 
   if (isMaximizingPlayer) {
     let maxEval = -9999999;
     allBoardsForPossibleWays(board, color).forEach((obj) => {
-      const evaluate = miniMax(obj.arbitaryBoard, depth - 1, false).minEval;
+      const evaluate = miniMax(obj.arbitaryBoard, depth - 1, false).e;
 
       if (evaluate > maxEval) {
         maxEval = evaluate;
@@ -180,16 +180,16 @@ export function miniMax(board, depth, isMaximizingPlayer) {
       }
     });
 
-    return { maxEval, bestWay };
+    return { e: maxEval, bestWay };
   } else {
     let minEval = 9999999;
     allBoardsForPossibleWays(board, color).forEach((obj) => {
-      const evaluate = miniMax(obj.arbitaryBoard, depth - 1, true).maxEval;
+      const evaluate = miniMax(obj.arbitaryBoard, depth - 1, true).e;
       if (evaluate < minEval) {
         minEval = evaluate;
         bestWay = obj;
       }
     });
-    return { minEval, bestWay };
+    return { e: minEval, bestWay };
   }
 }
