@@ -165,7 +165,7 @@ export function miniMax(board, depth, isMaximizingPlayer) {
   const color = isMaximizingPlayer ? "white" : "black";
   let bestWay = {};
 
-  if (depth === 0 || board.length === 0) {
+  if (depth === 0 || board.length === 2) {
     return { e: evaluateOnWhite(board) };
   }
 
