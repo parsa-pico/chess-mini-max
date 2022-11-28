@@ -40,9 +40,7 @@ export default function Board() {
         r = miniMax(pieces, 2, true);
         const translateX = (r.bestWay.way.x - r.bestWay.piece.location.x) * 50;
         const translateY = (r.bestWay.way.y - r.bestWay.piece.location.y) * 50;
-        console.log(translateX, translateY);
         const element = document.getElementById(r.bestWay.piece.id);
-        console.log(element);
         element.style.transform = `translate(${translateY}px, ${translateX}px)`;
         setTimeout(() => {
           movePiece(
@@ -86,11 +84,12 @@ export default function Board() {
       const result = checkForKingAttack(arbitaryPieces, isWhiteTurn);
       const translateX = (x - selectedPiece.location.x) * 50;
       const translateY = (y - selectedPiece.location.y) * 50;
-      document.getElementById(
-        selectedPiece.id
-      ).style.transform = `translate(${translateY}px, ${translateX}px)`;
-      setTimeout(() => {
-        if (!result) {
+      if (!result) {
+        if (selectedPiece.isPossibleWay(pieces, { x, y }))
+          document.getElementById(
+            selectedPiece.id
+          ).style.transform = `translate(${translateY}px, ${translateX}px)`;
+        setTimeout(() => {
           movePiece(
             pieces,
             selectedPiece,
@@ -104,8 +103,8 @@ export default function Board() {
             setPieces
           );
           if (kingAttackedLocation) setKingAttackedLocation(null);
-        }
-      }, 1000);
+        }, 1000);
+      }
 
       setSetlectedPiece(null);
       setPossibleWays([]);
