@@ -22,7 +22,7 @@ export default function Board() {
   const [selectedPiece, setSetlectedPiece] = useState(null);
   const [possibleWays, setPossibleWays] = useState([]);
   const [isGameFinished, setIsGameFinished] = useState(false);
-  const [t, setT] = useState(0);
+
   useEffect(() => {
     let r;
     const color = isWhiteTurn ? "white" : "black";
@@ -35,23 +35,31 @@ export default function Board() {
         allPossibleWaysForThisTurn.push(...p.possibleWays(pieces))
       );
     if (allPossibleWaysForThisTurn.length === 0) setIsGameFinished(true);
-    setT(1);
-    if (isWhiteTurn) {
-      console.log("hi");
-      r = miniMax(pieces, 2, true);
-      movePiece(
-        pieces,
-        r.bestWay.piece,
-        r.bestWay.way.x,
-        r.bestWay.way.y,
-        false,
-        true,
-        setRemovedPieces,
-        setIsWhiteTurn,
-        isWhiteTurn,
-        setPieces
-      );
-    }
+    setTimeout(() => {
+      if (isWhiteTurn) {
+        r = miniMax(pieces, 2, true);
+        const translateX = (r.bestWay.way.x - r.bestWay.piece.location.x) * 50;
+        const translateY = (r.bestWay.way.y - r.bestWay.piece.location.y) * 50;
+        console.log(translateX, translateY);
+        const element = document.getElementById(r.bestWay.piece.id);
+        console.log(element);
+        element.style.transform = `translate(${translateY}px, ${translateX}px)`;
+        setTimeout(() => {
+          movePiece(
+            pieces,
+            r.bestWay.piece,
+            r.bestWay.way.x,
+            r.bestWay.way.y,
+            false,
+            true,
+            setRemovedPieces,
+            setIsWhiteTurn,
+            isWhiteTurn,
+            setPieces
+          );
+        }, 1000);
+      }
+    }, 2);
   }, [isWhiteTurn]);
 
   function renderPiece(x, y) {
@@ -76,22 +84,29 @@ export default function Board() {
     } else {
       const arbitaryPieces = arbitaryMove(pieces, selectedPiece, x, y);
       const result = checkForKingAttack(arbitaryPieces, isWhiteTurn);
+      const translateX = (x - selectedPiece.location.x) * 50;
+      const translateY = (y - selectedPiece.location.y) * 50;
+      document.getElementById(
+        selectedPiece.id
+      ).style.transform = `translate(${translateY}px, ${translateX}px)`;
+      setTimeout(() => {
+        if (!result) {
+          movePiece(
+            pieces,
+            selectedPiece,
+            x,
+            y,
+            false,
+            true,
+            setRemovedPieces,
+            setIsWhiteTurn,
+            isWhiteTurn,
+            setPieces
+          );
+          if (kingAttackedLocation) setKingAttackedLocation(null);
+        }
+      }, 1000);
 
-      if (!result) {
-        movePiece(
-          pieces,
-          selectedPiece,
-          x,
-          y,
-          false,
-          true,
-          setRemovedPieces,
-          setIsWhiteTurn,
-          isWhiteTurn,
-          setPieces
-        );
-        if (kingAttackedLocation) setKingAttackedLocation(null);
-      }
       setSetlectedPiece(null);
       setPossibleWays([]);
     }

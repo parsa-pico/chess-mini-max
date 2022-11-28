@@ -3,7 +3,7 @@ import RookMarkup from "./Markups/Rook";
 export default class Rook extends ChessPiece {
   constructor(id, location, color) {
     super(id, location, color, "rook", 5);
-    this.markup = <RookMarkup color={color} />;
+    this.markup = <RookMarkup id={id} color={color} />;
   }
 
   possibleWays(

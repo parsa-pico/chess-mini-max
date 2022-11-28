@@ -4,7 +4,7 @@ import QueenMarkup from "./Markups/Queen";
 export default class Queen extends ChessPiece {
   constructor(id, location, color) {
     super(id, location, color, "queen", 9);
-    this.markup = <QueenMarkup color={color} />;
+    this.markup = <QueenMarkup id={id} color={color} />;
   }
   possibleWays(
     boardPieces,
