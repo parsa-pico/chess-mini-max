@@ -8,6 +8,7 @@ import {
   nextBestMoveForWhite,
   miniMax,
   allBoardsForPossibleWays,
+  convertToEasyBoard,
 } from "./BoardFiles/boardFunctions";
 import boardPieces from "./BoardFiles/boardPieces";
 import _ from "underscore";
@@ -60,7 +61,6 @@ export default function Board() {
       }
     }, 2);
   }, [isWhiteTurn]);
-
   function renderPiece(x, y) {
     const foundPiece = findPiece(pieces, x, y);
     if (foundPiece) return foundPiece.markup;

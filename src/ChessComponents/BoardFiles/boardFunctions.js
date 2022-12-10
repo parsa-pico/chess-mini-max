@@ -68,6 +68,7 @@ export function checkForKingAttack(pieces, isWhiteTurn) {
   });
   return result;
 }
+
 export function arbitaryMove(pieces, piece, x, y, checkForPossibleWay = true) {
   const piecesCopy = pieces.map((piece) => {
     const clone = Object.assign({}, piece);
@@ -79,6 +80,24 @@ export function arbitaryMove(pieces, piece, x, y, checkForPossibleWay = true) {
   movePiece(piecesCopy, piece, x, y, true, checkForPossibleWay);
   return piecesCopy;
 }
+// export function arbitaryMoveV2(
+//   pieces,
+//   piece,
+//   x,
+//   y,
+//   checkForPossibleWay = true
+// ) {
+//   const piecesCopy = convertToEasyBoard(pieces);
+//   movePiece(piecesCopy, piece, x, y, true, checkForPossibleWay);
+//   return piecesCopy;
+// }
+// export function convertToEasyBoard(pieces) {
+//   const easyBoard = [];
+//   pieces.forEach((piece) => {
+//     easyBoard.push({ ...piece });
+//   });
+//   return easyBoard;
+// }
 export function movePiece(
   pieces,
   piece,
@@ -147,12 +166,11 @@ export function findPiece(pieces, x, y, color) {
 
 export function allBoardsForPossibleWays(boardPieces, color) {
   let allBoards = [];
-  let count = 0;
+
   boardPieces
     .filter((p) => p.color === color)
     .forEach((piece) => {
       piece.possibleWays(boardPieces).forEach((way) => {
-        count++;
         const arbitaryBoard = arbitaryMove(boardPieces, piece, way.x, way.y);
         allBoards.push({ piece, way, arbitaryBoard });
       });
@@ -160,8 +178,10 @@ export function allBoardsForPossibleWays(boardPieces, color) {
 
   return allBoards;
 }
+
 export function miniMax(board, depth, isMaximizingPlayer) {
   //maximizing player is white here
+
   const color = isMaximizingPlayer ? "white" : "black";
   let bestWay = {};
 
