@@ -12,6 +12,7 @@ import {
 } from "./BoardFiles/boardFunctions";
 import boardPieces from "./BoardFiles/boardPieces";
 import _ from "underscore";
+import "../Styles/chess.css";
 export default function Board() {
   // x is vertical postion,y is horizontal
   const [x, setX] = useState([0, 1, 2, 3, 4, 5, 6, 7]);
