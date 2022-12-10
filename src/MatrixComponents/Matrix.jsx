@@ -100,7 +100,12 @@ export default function Matrix() {
       number of matrices:
       <input
         type="number"
-        onChange={({ currentTarget }) => setN(currentTarget.value)}
+        onChange={({ currentTarget }) => {
+          setDimensions([]);
+          setKLocations([]);
+          setMinCost([]);
+          setN(currentTarget.value);
+        }}
       />
       <div>
         {n && (
@@ -127,15 +132,17 @@ export default function Matrix() {
           <>
             {showTable && (
               <button
+                className="matrix__btn  matrix__btn--blue"
                 onClick={() => {
                   bottomUpMinCost();
                 }}
               >
-                generate table
+                generate values
               </button>
             )}
             {!showTable && (
               <button
+                className="matrix__btn"
                 disabled={disableTable()}
                 onClick={() => {
                   setShowTable(true);

@@ -25,5 +25,17 @@
   top: 0;
   right: 0;
 }
+.matrix__btn {
+  margin: 1rem 0;
+}
+.matrix__btn--blue {
+  background: rgb(63, 94, 251);
+  background: linear-gradient(
+    90deg,
+    rgba(63, 94, 251, 1) 0%,
+    rgba(252, 70, 70, 1) 100%
+  );
+  color: rgb(215, 215, 215);
+}
 .matrix__row {
 }
