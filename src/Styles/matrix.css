@@ -25,6 +25,9 @@
   top: 0;
   right: 0;
 }
+.matrix-square--green {
+  background-color: green;
+}
 .matrix__btn {
   margin: 1rem 0;
 }
@@ -37,5 +40,29 @@
   );
   color: rgb(215, 215, 215);
 }
+.square-wrapper__cIndex {
+  position: absolute;
+  top: -30%;
+  left: 50%;
+}
+.square-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
 .matrix__row {
+  display: flex;
+}
+.matrix__body {
+  position: relative;
+}
+.matrix__table {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+.push {
+  height: 100px;
 }
