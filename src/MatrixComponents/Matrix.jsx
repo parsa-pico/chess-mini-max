@@ -154,6 +154,9 @@ export default function Matrix() {
                       let copyD = [...dimensions];
                       copyD[index] = currentTarget.value;
                       setDimensions(copyD);
+                      setSolutions([]);
+                      setMatrices("");
+                      setSelectedSquare({});
                     }}
                     type="number"
                   />
