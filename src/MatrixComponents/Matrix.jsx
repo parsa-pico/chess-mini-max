@@ -213,17 +213,19 @@ export default function Matrix() {
                           className="square-wrapper"
                           onClick={() => {
                             if (rIndex <= cIndex) {
-                              let minCostCopy = [...minCost];
-                              let kLocationsCopy = [...kLocations];
-                              const result = minMultipication(
-                                rIndex,
-                                cIndex,
-                                minCost
-                              );
-                              minCostCopy[rIndex][cIndex] = result.min;
-                              kLocationsCopy[rIndex][cIndex] = result.k;
-                              setMinCost(minCostCopy);
-                              setKLocations(kLocationsCopy);
+                              if (!minCost[rIndex][cIndex]) {
+                                let minCostCopy = [...minCost];
+                                let kLocationsCopy = [...kLocations];
+                                const result = minMultipication(
+                                  rIndex,
+                                  cIndex,
+                                  minCost
+                                );
+                                minCostCopy[rIndex][cIndex] = result.min;
+                                kLocationsCopy[rIndex][cIndex] = result.k;
+                                setMinCost(minCostCopy);
+                                setKLocations(kLocationsCopy);
+                              }
                               setSolutions(printSquareSolution(rIndex, cIndex));
                               setSelectedSquare({ rIndex, cIndex });
                             }
