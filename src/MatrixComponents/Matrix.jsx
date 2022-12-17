@@ -104,10 +104,14 @@ export default function Matrix() {
     }
     const solutions = [];
     breakPoints.forEach((k) => {
+      const cost =
+        minCost[start][k] +
+        minCost[k + 1][end] +
+        dimensions[start] * dimensions[k + 1] * dimensions[end + 1];
       solutions.push(
         `minCost(${start + 1},${k + 1}) + minCost(${k + 2},${
           end + 1
-        })+p${start}*p${k + 1}*p${end + 1}`
+        })+p${start}*p${k + 1}*p${end + 1} = ${cost}`
       );
     });
     return solutions;
@@ -170,7 +174,7 @@ export default function Matrix() {
                 generate values
               </button>
             )}
-            {kLocations[0][0] !== null && (
+            {kLocations[0][n - 1] !== null && (
               <div>
                 <button onClick={() => setMatrices(printMatrices(0, n - 1))}>
                   show matrices
@@ -241,13 +245,26 @@ export default function Matrix() {
         </div>
         {solutions.length !== 0 && (
           <div>
-            minCost of ({selectedSquare.rIndex + 1},{selectedSquare.cIndex + 1})
+            minCost of ({selectedSquare.rIndex + 1},{selectedSquare.cIndex + 1}
+            ):
+            <p>MIN{"{"}</p>
             {solutions.map((solution, index) => (
               <div key={index}>
-                k={selectedSquare.rIndex + 1 + index} ={">"}
-                {solution}
+                {kLocations[selectedSquare.rIndex][selectedSquare.cIndex] ===
+                selectedSquare.rIndex + index ? (
+                  <b>
+                    k={selectedSquare.rIndex + 1 + index} ={">"}
+                    {solution}
+                  </b>
+                ) : (
+                  <p>
+                    k={selectedSquare.rIndex + 1 + index} ={">"}
+                    {solution}
+                  </p>
+                )}
               </div>
             ))}
+            <p>{"}"}</p>
           </div>
         )}
         <div className="push"></div>

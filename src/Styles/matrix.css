@@ -40,6 +40,13 @@
   );
   color: rgb(215, 215, 215);
 }
+.matrix__btn--blue:hover,
+.matrix__btn--blue:focus {
+  border: 2px solid;
+  box-shadow: 0 0 5px rgb(110, 45, 98);
+  border-color: rgb(118, 39, 136);
+  outline: 0;
+}
 .square-wrapper__cIndex {
   position: absolute;
   top: -30%;
