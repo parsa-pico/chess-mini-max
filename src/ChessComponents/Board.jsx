@@ -44,7 +44,7 @@ export default function Board() {
     setTimeout(() => {
       if (isWhiteTurn) {
         const t1 = performance.now();
-        r = miniMax(pieces, 3, true, 3);
+        r = miniMax(pieces, 2, true, 2);
         const t2 = performance.now();
         console.log("total cost", t2 - t1);
         console.log("test cost", testCost);
