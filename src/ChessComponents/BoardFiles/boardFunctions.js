@@ -1,4 +1,4 @@
-import _, { max } from "underscore";
+import _, { first, max } from "underscore";
 Array.prototype.findFrom = function (index, element) {
   for (let i = index; i < this.length; i++) {
     if (_.isEqual(element, this[i])) return true;
@@ -42,7 +42,10 @@ export function randomInt(min, max) {
   const randInt = Math.floor(Math.random() * (max - min) + min);
   return randInt;
 }
-
+export let uniqueCost = 0;
+export function setUniqueCost() {
+  uniqueCost = 0;
+}
 export function allPossibleWays(boardPieces, color, isForKingCheck = false) {
   let ways = [];
 
@@ -51,9 +54,10 @@ export function allPossibleWays(boardPieces, color, isForKingCheck = false) {
     .forEach((piece) => {
       ways.push(...piece.possibleWays(boardPieces, true, isForKingCheck));
     });
-
+  const t1 = performance.now();
   const uniqueWays = ways.unique();
-
+  const t2 = performance.now();
+  uniqueCost += t2 - t1;
   return uniqueWays;
 }
 export function checkForKingAttack(pieces, isWhiteTurn) {
@@ -98,6 +102,7 @@ export function arbitaryMove(pieces, piece, x, y, checkForPossibleWay = true) {
 //   });
 //   return easyBoard;
 // }
+export let moveTime = 0;
 export function movePiece(
   pieces,
   piece,
@@ -112,9 +117,10 @@ export function movePiece(
 ) {
   const nextLocationPiece = findPiece(pieces, x, y);
   let isPossible;
-  if (checkForPossibleWay)
+  if (checkForPossibleWay) {
     isPossible = piece.isPossibleWay(pieces, { x, y }, isArbitaryMove);
-  if (!checkForPossibleWay || piece.isPossibleWay(pieces, { x, y })) {
+  }
+  if (!checkForPossibleWay || isPossible) {
     if (nextLocationPiece) {
       if (!isArbitaryMove)
         setRemovedPieces((prevState) => [...prevState, nextLocationPiece]);
@@ -179,12 +185,15 @@ export function allBoardsForPossibleWays(boardPieces, color) {
   return allBoards;
 }
 
-export function miniMax(board, depth, isMaximizingPlayer, firstDepth = depth) {
+export function miniMax(board, depth, isMaximizingPlayer, firstDepth) {
   //maximizing player is white here
+
   let bestWay = {};
   let color;
   if (depth === 0) {
     // return { e: evaluateOnWhite(board) };
+    // if (board.length !== 32)
+    // if (board.length === 32)
 
     return evaluateOnWhite(board);
   }
@@ -195,6 +204,7 @@ export function miniMax(board, depth, isMaximizingPlayer, firstDepth = depth) {
     //if there is no move for white,it means black won,so allboards.length=0,thus -infinity will return
     allBoardsForPossibleWays(board, color).forEach((obj) => {
       const evaluate = miniMax(obj.arbitaryBoard, depth - 1, false, firstDepth);
+      // if (depth === firstDepth) console.log(obj, evaluate);
 
       if (evaluate > maxEval) {
         maxEval = evaluate;
@@ -217,6 +227,7 @@ export function miniMax(board, depth, isMaximizingPlayer, firstDepth = depth) {
         bestWay = obj;
       }
     });
+
     return minEval;
     // return { e: minEval, bestWay };
   }

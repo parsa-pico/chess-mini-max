@@ -6,11 +6,7 @@ export default class Rook extends ChessPiece {
     this.markup = <RookMarkup id={id} color={color} />;
   }
 
-  possibleWays(
-    boardPieces,
-    isForAllPossibleWays = false,
-    isForKingCheck = false
-  ) {
+  possibleWaysLogic(boardPieces) {
     let ways = [];
 
     for (let x = this.location.x - 1; x >= 0; x--) {
@@ -50,8 +46,8 @@ export default class Rook extends ChessPiece {
       if (obstacle) break;
     }
 
-    if (!isForKingCheck) this.removeEnemyKingFromWays(ways, boardPieces);
-    if (!isForAllPossibleWays) this.checkForNextMove(boardPieces, ways);
+    // if (!isForKingCheck) this.removeEnemyKingFromWays(ways, boardPieces);
+    // if (!isForAllPossibleWays) this.checkForNextMove(boardPieces, ways);
     return ways;
   }
 }

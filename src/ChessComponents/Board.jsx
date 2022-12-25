@@ -9,10 +9,14 @@ import {
   miniMax,
   allBoardsForPossibleWays,
   convertToEasyBoard,
+  moveTime,
+  uniqueCost,
+  setUniqueCost,
 } from "./BoardFiles/boardFunctions";
 import boardPieces from "./BoardFiles/boardPieces";
 import _ from "underscore";
 import "../Styles/chess.css";
+import { setTestCostToZero, testCost } from "./ChessPieces/ChessPiece";
 export default function Board() {
   // x is vertical postion,y is horizontal
   const [x, setX] = useState([0, 1, 2, 3, 4, 5, 6, 7]);
@@ -39,8 +43,14 @@ export default function Board() {
     if (allPossibleWaysForThisTurn.length === 0) setIsGameFinished(true);
     setTimeout(() => {
       if (isWhiteTurn) {
-        r = miniMax(pieces, 2, true);
-
+        const t1 = performance.now();
+        r = miniMax(pieces, 3, true, 3);
+        const t2 = performance.now();
+        console.log("total cost", t2 - t1);
+        console.log("test cost", testCost);
+        console.log("uniqe cost", uniqueCost);
+        setUniqueCost();
+        setTestCostToZero();
         const translateX = (r.bestWay.way.x - r.bestWay.piece.location.x) * 50;
         const translateY = (r.bestWay.way.y - r.bestWay.piece.location.y) * 50;
         const element = document.getElementById(r.bestWay.piece.id);

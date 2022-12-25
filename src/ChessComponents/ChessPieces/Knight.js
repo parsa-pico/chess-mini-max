@@ -5,11 +5,7 @@ export default class Knight extends ChessPiece {
     super(id, location, color, "knight", 3);
     this.markup = <KnightMarkup id={id} color={color} />;
   }
-  possibleWays(
-    boardPieces,
-    isForAllPossibleWays = false,
-    isForKingCheck = false
-  ) {
+  possibleWaysLogic(boardPieces) {
     let ways = [
       { x: this.location.x + 2, y: this.location.y + 1 },
       { x: this.location.x + 2, y: this.location.y - 1 },
@@ -37,8 +33,8 @@ export default class Knight extends ChessPiece {
         deleteArray.push(index);
     }
     deleteArray.reverse().forEach((index) => ways.splice(index, 1));
-    if (!isForKingCheck) this.removeEnemyKingFromWays(ways, boardPieces);
-    if (!isForAllPossibleWays) this.checkForNextMove(boardPieces, ways);
+    // if (!isForKingCheck) this.removeEnemyKingFromWays(ways, boardPieces);
+    // if (!isForAllPossibleWays) this.checkForNextMove(boardPieces, ways);
     return ways;
   }
 }

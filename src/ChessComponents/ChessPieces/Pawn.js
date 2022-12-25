@@ -7,11 +7,7 @@ export default class Pawn extends ChessPiece {
     this.markup = <PawnMarkup id={id} color={color} />;
     this.firstLocation = location;
   }
-  possibleWays(
-    boardPieces,
-    isForAllPossibleWays = false,
-    isForKingCheck = false
-  ) {
+  possibleWaysLogic(boardPieces) {
     let ways = [];
     let x;
     let y = this.location.y;
@@ -52,8 +48,8 @@ export default class Pawn extends ChessPiece {
     ) {
       ways.push({ x, y });
     }
-    if (!isForKingCheck) this.removeEnemyKingFromWays(ways, boardPieces);
-    if (!isForAllPossibleWays) this.checkForNextMove(boardPieces, ways);
+    // if (!isForKingCheck) this.removeEnemyKingFromWays(ways, boardPieces);
+    // if (!isForAllPossibleWays) this.checkForNextMove(boardPieces, ways);
     return ways;
   }
 }

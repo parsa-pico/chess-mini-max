@@ -2,6 +2,10 @@ import {
   arbitaryMove,
   checkForKingAttack,
 } from "./../BoardFiles/boardFunctions";
+export let testCost = 0;
+export function setTestCostToZero() {
+  testCost = 0;
+}
 export default class ChessPiece {
   constructor(id, location, color, type, weight) {
     this.id = id;
@@ -11,7 +15,22 @@ export default class ChessPiece {
     this.weight = weight;
   }
   isVerifiedMove() {}
-  possibleWays() {}
+
+  possibleWaysLogic(boardPieces) {}
+  possibleWays(
+    boardPieces,
+    isForAllPossibleWays = false,
+    isForKingCheck = false
+  ) {
+    let ways = this.possibleWaysLogic(boardPieces);
+
+    if (!isForKingCheck) this.removeEnemyKingFromWays(ways, boardPieces);
+
+    if (!isForAllPossibleWays) this.checkForNextMove(boardPieces, ways);
+
+    return ways;
+  }
+
   isPossibleWay(boardPieces, nextLocation) {
     const ways = this.possibleWays(boardPieces);
     const way = ways.find(
@@ -44,7 +63,10 @@ export default class ChessPiece {
 
     ways.forEach((way, index) => {
       const arbitaryPieces = arbitaryMove(pieces, this, way.x, way.y, false);
+      const t1 = performance.now();
       const result = checkForKingAttack(arbitaryPieces, isWhiteTurn);
+      const t2 = performance.now();
+      testCost += t2 - t1;
       if (result) deleteArray.push(index);
     });
     deleteArray.reverse().forEach((index) => ways.splice(index, 1));

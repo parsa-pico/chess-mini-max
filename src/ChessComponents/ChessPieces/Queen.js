@@ -6,11 +6,7 @@ export default class Queen extends ChessPiece {
     super(id, location, color, "queen", 9);
     this.markup = <QueenMarkup id={id} color={color} />;
   }
-  possibleWays(
-    boardPieces,
-    isForAllPossibleWays = false,
-    isForKingCheck = false
-  ) {
+  possibleWaysLogic(boardPieces) {
     let ways = [];
     let x;
     let y;
@@ -101,8 +97,8 @@ export default class Queen extends ChessPiece {
       if (obstacle) break;
     }
 
-    if (!isForKingCheck) this.removeEnemyKingFromWays(ways, boardPieces);
-    if (!isForAllPossibleWays) this.checkForNextMove(boardPieces, ways);
+    // if (!isForKingCheck) this.removeEnemyKingFromWays(ways, boardPieces);
+    // if (!isForAllPossibleWays) this.checkForNextMove(boardPieces, ways);
     return ways;
   }
 }

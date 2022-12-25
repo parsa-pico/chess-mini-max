@@ -8,11 +8,7 @@ export default class King extends ChessPiece {
     this.markup = <KingMarkup id={id} color={color} />;
   }
   // TODO: find a better way instead of isFoAllPossibleWays
-  possibleWays(
-    boardPieces,
-    isForAllPossibleWays = false,
-    isForKingCheck = false
-  ) {
+  possibleWaysLogic(boardPieces) {
     let ways = [];
     for (let x = -1; x <= 1; x++) {
       for (let y = -1; y <= 1; y++) {
@@ -42,10 +38,8 @@ export default class King extends ChessPiece {
         }
       }
     }
-    // if (!isForAllPossibleWays) this.checkForNextMove(ways, boardPieces);
-    //i dont think this ever happens(remove enemyking ...)
-    this.removeEnemyKingFromWays(ways, boardPieces);
-    if (!isForAllPossibleWays) this.checkForNextMove(boardPieces, ways);
+
+    // if (!isForAllPossibleWays) this.checkForNextMove(boardPieces, ways);
     return ways;
   }
 
