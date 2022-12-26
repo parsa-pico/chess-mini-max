@@ -54,10 +54,10 @@ export function allPossibleWays(boardPieces, color, isForKingCheck = false) {
     .forEach((piece) => {
       ways.push(...piece.possibleWays(boardPieces, true, isForKingCheck));
     });
-  const t1 = performance.now();
+  // const t1 = performance.now();
   const uniqueWays = ways.unique();
-  const t2 = performance.now();
-  uniqueCost += t2 - t1;
+  // const t2 = performance.now();
+  // uniqueCost += t2 - t1;
   return uniqueWays;
 }
 export function checkForKingAttack(pieces, isWhiteTurn) {
@@ -214,6 +214,7 @@ export function miniMax(board, depth, isMaximizingPlayer, firstDepth) {
 
     // return { e: maxEval, bestWay };
     if (depth === firstDepth) {
+      // console.log(maxEval);
       return { e: maxEval, bestWay };
     }
     return maxEval;

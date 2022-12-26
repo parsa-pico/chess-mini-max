@@ -46,11 +46,11 @@ export default function Board() {
         const t1 = performance.now();
         r = miniMax(pieces, 2, true, 2);
         const t2 = performance.now();
-        console.log("total cost", t2 - t1);
-        console.log("test cost", testCost);
-        console.log("uniqe cost", uniqueCost);
-        setUniqueCost();
-        setTestCostToZero();
+        // console.log("total cost", t2 - t1);
+        // console.log("test cost", testCost);
+        // console.log("uniqe cost", uniqueCost);
+        // setUniqueCost();
+        // setTestCostToZero();
         const translateX = (r.bestWay.way.x - r.bestWay.piece.location.x) * 50;
         const translateY = (r.bestWay.way.y - r.bestWay.piece.location.y) * 50;
         const element = document.getElementById(r.bestWay.piece.id);

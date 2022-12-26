@@ -63,10 +63,10 @@ export default class ChessPiece {
 
     ways.forEach((way, index) => {
       const arbitaryPieces = arbitaryMove(pieces, this, way.x, way.y, false);
-      const t1 = performance.now();
+      // const t1 = performance.now();
       const result = checkForKingAttack(arbitaryPieces, isWhiteTurn);
-      const t2 = performance.now();
-      testCost += t2 - t1;
+      // const t2 = performance.now();
+      // testCost += t2 - t1;
       if (result) deleteArray.push(index);
     });
     deleteArray.reverse().forEach((index) => ways.splice(index, 1));
