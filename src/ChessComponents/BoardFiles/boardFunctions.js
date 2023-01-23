@@ -61,19 +61,42 @@ export function allPossibleWays(boardPieces, color, isForKingCheck = false) {
   // uniqueCost += t2 - t1;
   return uniqueWays;
 }
-export function checkForKingAttack(pieces, isWhiteTurn) {
+export function checkForKingAttack(pieces, isWhiteTurn, isForMiniMax) {
   const thisTurnColor = isWhiteTurn ? "white" : "black";
   const enemyColor = isWhiteTurn ? "black" : "white";
   const king = pieces.find(
     (piece) => piece.type === "king" && piece.color === thisTurnColor
   );
-
+  // let result;
+  // pieces.forEach((piece) => {
+  //   // if (piece.isDangerous || !isForMiniMax) {
+  //   piece.possibleWays(pieces, true, true).forEach((way) => {
+  //     if (_.isEqual(way, king.location)) result = way;
+  //   });
+  // }
+  // piece.isDangerous = false;
+  // });
+  // return result;
   const result = allPossibleWays(pieces, enemyColor, true).find((way) => {
     return _.isEqual(way, king.location);
   });
   return result;
 }
-
+// function dangerousEnemyPieces(pieces, thisTurnColor) {
+//   const king = pieces.find(
+//     (piece) => piece.color === thisTurnColor && piece.type === "king"
+//   );
+//   pieces.forEach((piece) => {
+//     if (piece.color !== thisTurnColor)
+//       piece.possibleWays(pieces, true, true, true).every((way) => {
+//         if (_.isEqual(way, king.location)) {
+//           piece.isDangerous = true;
+//           return false;
+//         }
+//         return true;
+//       });
+//   });
+// }
 export function arbitaryMove(pieces, piece, x, y, checkForPossibleWay = true) {
   const piecesCopy = pieces.map((piece) => {
     const clone = Object.assign({}, piece);
@@ -173,7 +196,7 @@ export function findPiece(pieces, x, y, color) {
 
 function allBoardsForPossibleWays(boardPieces, color) {
   let allBoards = [];
-
+  // dangerousEnemyPieces(boardPieces, color);
   boardPieces
     .filter((p) => p.color === color)
     .forEach((piece) => {

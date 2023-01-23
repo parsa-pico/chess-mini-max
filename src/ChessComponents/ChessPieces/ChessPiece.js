@@ -17,16 +17,23 @@ export default class ChessPiece {
   isVerifiedMove() {}
 
   possibleWaysLogic(boardPieces) {}
+
   possibleWays(
     boardPieces,
     isForAllPossibleWays = false,
     isForKingCheck = false
+    // isForMiniMax = false
   ) {
     let ways = this.possibleWaysLogic(boardPieces);
 
     if (!isForKingCheck) this.removeEnemyKingFromWays(ways, boardPieces);
 
-    if (!isForAllPossibleWays) this.checkForNextMove(boardPieces, ways);
+    if (!isForAllPossibleWays)
+      this.checkForNextMove(
+        boardPieces,
+        ways
+        // isForMiniMax
+      );
 
     return ways;
   }
@@ -56,17 +63,25 @@ export default class ChessPiece {
     return this.color === "white" ? "black" : "white";
   }
 
-  checkForNextMove(pieces, ways) {
+  checkForNextMove(
+    pieces,
+    ways
+    // isForMiniMax
+  ) {
     let deleteArray = [];
 
     const isWhiteTurn = this.color === "white" ? true : false;
 
     ways.forEach((way, index) => {
       const arbitaryPieces = arbitaryMove(pieces, this, way.x, way.y, false);
-      // const t1 = performance.now();
-      const result = checkForKingAttack(arbitaryPieces, isWhiteTurn);
-      // const t2 = performance.now();
-      // testCost += t2 - t1;
+      const t1 = performance.now();
+      const result = checkForKingAttack(
+        arbitaryPieces,
+        isWhiteTurn
+        // isForMiniMax
+      );
+      const t2 = performance.now();
+      testCost += t2 - t1;
       if (result) deleteArray.push(index);
     });
     deleteArray.reverse().forEach((index) => ways.splice(index, 1));

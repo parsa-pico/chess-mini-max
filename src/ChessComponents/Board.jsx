@@ -5,13 +5,7 @@ import {
   movePiece,
   arbitaryMove,
   checkForKingAttack,
-  nextBestMoveForWhite,
   miniMax,
-  allBoardsForPossibleWays,
-  convertToEasyBoard,
-  moveTime,
-  uniqueCost,
-  setUniqueCost,
 } from "./BoardFiles/boardFunctions";
 import boardPieces from "./BoardFiles/boardPieces";
 import _ from "underscore";
@@ -44,9 +38,9 @@ export default function Board() {
     setTimeout(() => {
       if (isWhiteTurn) {
         const t1 = performance.now();
-        r = miniMax(pieces, 2, true, 2);
+        r = miniMax(pieces, 2, true, -Infinity, Infinity);
         const t2 = performance.now();
-        // console.log("total cost", t2 - t1);
+        console.log("total cost", t2 - t1);
         // console.log("test cost", testCost);
         // console.log("uniqe cost", uniqueCost);
         // setUniqueCost();
