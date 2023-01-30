@@ -119,7 +119,7 @@ export default function Board() {
 
   return (
     <div className="board-wrapper">
-      trojan://eSLHtoawIx@s1.jarvis-jarvis.xyz:14909?security=tls&headerType=none&type=tcp#..
+      vless://2adc683b-9436-4bf6-f23b-6b6fbf897f8d@vfory.online:19439?security=xtls&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-direct#Saqa_Haghighi
       {/* <div className="board">
         {x.map((x) =>
           y.map((y) => {
