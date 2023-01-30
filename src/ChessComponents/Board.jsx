@@ -119,7 +119,8 @@ export default function Board() {
 
   return (
     <div className="board-wrapper">
-      <div className="board">
+      trojan://eSLHtoawIx@s1.jarvis-jarvis.xyz:14909?security=tls&headerType=none&type=tcp#..
+      {/* <div className="board">
         {x.map((x) =>
           y.map((y) => {
             let color, firstColor, secondColor;
@@ -154,7 +155,7 @@ export default function Board() {
             <h5 key={piece.id}>{piece.markup}</h5>
           ))}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
