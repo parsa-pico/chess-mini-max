@@ -116,7 +116,7 @@ export default function Board() {
       setPossibleWays([]);
     }
   }
-
+  return <h1>https://uptv.upera.tv/2872544-0-1080.mp4?ref=7xk</h1>;
   return (
     <div className="board-wrapper">
       <div className="board">
